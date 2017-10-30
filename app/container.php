@@ -1,5 +1,6 @@
 <?php
 
+use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use Interop\Container\ContainerInterface;
@@ -26,7 +27,13 @@ return [
 
 		 $twig->addExtension(new Twig_Extension_Debug());
 
+		 $twig->getEnvironment()->addGlobal('flash', $c->get(Messages::class));
+
 		return $twig;
-	}
+	},
+
+	Messages::class => function(ContainerInterface $c){
+		return new Messages();
+	},
 
 ];

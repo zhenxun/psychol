@@ -2,8 +2,10 @@
 
 use Leopard\App;
 use Slim\Views\Twig;
+use Slim\Flash\Messages as Flash;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
+date_default_timezone_set('asia/taipei');
 session_start();
 
 require __DIR__. '/../vendor/autoload.php';

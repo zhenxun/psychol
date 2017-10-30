@@ -11,18 +11,18 @@
   <span class="heading">主選單</span>
   <ul class="list-unstyled">
     <li class="active"> <a href="{{ path_for('news.index') }}"><i class="icon-home"></i>最新消息</a></li>
-    <li><a href="#dashvariants" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>關於我們</a>
-      <ul id="dashvariants" class="collapse list-unstyled">
-        <li><a href="#">系所簡介</a></li>
-        <li><a href="#">組織架構</a></li>
-        <li><a href="#">服務團隊</a></li>
+    
+    <li><a href="#about" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>關於我們</a>
+      <ul id="about" class="collapse list-unstyled">
+        <li><a href="{{ path_for('about.index') }}">系所簡介</a></li>
+        <li><a href="{{ path_for('organization.index') }}">組織架構</a></li>
         <li><a href="#">服務團隊</a></li>
         <li><a href="#">章程與設置要點</a></li>
       </ul>
     </li>
     <li> <a href="./"><i class="icon-home"></i>系所成員</a></li>
-    <li><a href="#dashvariants" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>學位學程 </a>
-      <ul id="dashvariants" class="collapse list-unstyled">
+    <li><a href="#member" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>學位學程 </a>
+      <ul id="member" class="collapse list-unstyled">
         <li><a href="#">緣起與簡介</a></li>
         <li><a href="#">設置辦法</a></li>
         <li><a href="#">修課規定</a></li>
@@ -30,8 +30,8 @@
         <li><a href="#">文件下載</a></li>
       </ul>
     </li>
-    <li><a href="#dashvariants" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>核心設施 </a>
-      <ul id="dashvariants" class="collapse list-unstyled">
+    <li><a href="#facilities" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>核心設施 </a>
+      <ul id="facilities" class="collapse list-unstyled">
         <li><a href="#">核心實驗室</a></li>
         <li><a href="#">使用規範</a></li>
         <li><a href="#">申請表單</a></li>
