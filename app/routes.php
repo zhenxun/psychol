@@ -40,6 +40,18 @@ $app->group('/admin', function(){
 
 	$this->delete('/organization/{id}',['Leopard\Controllers\Admin\OrganizationController','delete'])->setName('organization.delete');
 
+	$this->get('/charter',['Leopard\Controllers\Admin\CharterController','index'])->setName('charter.index');
+
+	$this->get('/charter/search/{id}',['Leopard\Controllers\Admin\CharterController','search'])->setName('charter.search');
+
+	$this->post('/charter',['Leopard\Controllers\Admin\CharterController','create'])->setName('charter.create');
+
+	$this->post('/charter/update',['Leopard\Controllers\Admin\CharterController','update'])->setName('charter.update');
+
+	$this->delete('/charter/{id}',['Leopard\Controllers\Admin\CharterController','delete'])->setName('charter.delete');
+
+	$this->get('/course/about',['Leopard\Controllers\Admin\CourseAboutController','index'])->setName('course.about.index');
+
 });
 
 
