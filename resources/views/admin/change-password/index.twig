@@ -1,0 +1,60 @@
+{% extends 'admin/templates/default.twig' %}
+
+{% block header %}
+    <header class="page-header">
+	    <div class="container-fluid">
+	      <h2 class="no-margin-bottom">密碼變更</h2>
+	    </div>
+  	</header>
+{% endblock %}
+
+{% block content %}
+    <ul class="breadcrumb">
+        <div class="container-fluid">
+          	<li class="breadcrumb-item"><a href="{{ path_for('admin.home') }}">主選單</a></li>
+            <li class="breadcrumb-item active">密碼變更</li>
+        </div>
+    </ul>
+
+    <div class="col-lg-12" style="margin-top:20px;">
+      <div class="card">
+        <div class="card-header d-flex align-items-center">
+          <h3 class="h4">密碼變更</h3>
+        </div>
+        <div class="card-body" style="height:60vh;">
+          <div style="padding-bottom:10px;">
+            {% include 'admin/templates/partials/flash.twig' %}
+            <small style="color:red;"><strong> (*) 必填 </strong></small>
+          </div>
+          <form class="form-horizontal" id="UsersForm" action="{{ path_for('change.password.renew') }}" method="POST" enctype="multipart/form-data">
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">新密碼: <span style="color:red">(*)</span></label>
+              <div class="col-sm-10">
+                <input type="password" name="pwd" class="form-control">
+              </div>
+          </div> 
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">確認新密碼: <span style="color:red">(*)</span></label>
+              <div class="col-sm-10">
+                <input type="password" name="confirm-pwd" class="form-control">
+              </div>
+          </div>
+
+            <div class="line"></div>
+            <input type="hidden" name="update-id" value="{{ user.id }}">
+            <div class="form-group row">
+              <div class="col-sm-12 text-right">
+                <button type="reset" class="btn btn-secondary">重置</button>
+                <button type="submit" class="btn btn-primary">儲存</button>
+              </div>                      
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

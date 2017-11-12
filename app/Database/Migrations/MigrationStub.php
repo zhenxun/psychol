@@ -11,26 +11,16 @@ class $className extends $baseClassName
 
     	$this->schema->create('', function (Blueprint $table){
     		
-    		//
+            $table->increments('id')->unique();
+    		
     	});
-
-    	$this->schema->table('', function (Blueprint $table){
-
-    		//
-    	});
-
 
     }
 
     public function down(){
 
-    	$this->schema->table('', function (Blueprint $table){
 
-    		//
-    	});
-
-
-    	$this->schema->drop('');
+    	$this->dropTable('');
 
     }
 }

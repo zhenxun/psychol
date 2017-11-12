@@ -104,7 +104,7 @@
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>{{ about.updated_at }}</td>
-                        <td>{{ about.lang }}</td>
+                        <td>{% if about.lang == 'chn' %} 中文 {% else %} 英文 {% endif %}</td>
                         <td>
                           <a href="{{ path_for('about.search', {id: about.id }) }}" class="btnAboutEdit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp;
                           <a href="#" role="{{ about.id }}" class="btnAboutDelete" title="刪除"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>

@@ -1,7 +1,10 @@
 <?php
 use Illuminate\Database\Capsule\Manager as Capsule;
 
+require __DIR__. '/vendor/autoload.php';
 //require_once __DIR__. '/bootstrap/app.php';
+
+date_default_timezone_set("Asia/Taipei");
 
 $dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
@@ -24,11 +27,11 @@ $capsule->bootEloquent();
 
 return [
 	'paths' => [
-		'migrations' => 'database/migrations'
+		'migrations' => '/Applications/XAMPP/htdocs/psychol/database/migrations'
 	],
 	'migration_base_class' => 'Leopard\Database\Migrations\Migration',
 	'templates' =>[
-	  'file' => 'app/Database/Migrations/MigrationStub.php'
+	  'file' => '/Applications/XAMPP/htdocs/psychol/app/Database/Migrations/MigrationStub.php'
 	],
 	'environments' =>[
 		'default_migration_table' => 'migrations',

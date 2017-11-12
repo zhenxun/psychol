@@ -1,0 +1,66 @@
+<div id="sidebar">
+		<div class="inner">
+
+		<!-- Search -->
+			<section id="search" class="alt">
+				<form method="post" action="#">
+					<input type="text" name="query" id="query" placeholder="{{ trans('home.search') }}" />
+				</form>
+			</section>
+
+		<!-- Menu -->
+			<nav id="menu">
+				<header class="major">
+					<h2>{{ trans('menu.title') }}</h2>
+				</header>
+				<ul>
+					<li><a href="{{ path_for('home') }}">{{ trans('menu.nav.home') }}</a></li>
+					<li><a href="{{ path_for('c.news.index') }}">{{ trans('menu.nav.news') }}</a></li>
+					<li>
+						<span class="opener">{{ trans('menu.nav.abouts.index') }}</span>
+						<ul>
+							<li><a href="{{ path_for('c.about.index') }}">{{ trans('menu.nav.abouts.intro') }}</a></li>
+							<li><a href="{{ path_for('c.organization.index') }}">{{ trans('menu.nav.abouts.organization') }}</a></li>
+							<li><a href="{{ path_for('c.staff.index') }}">{{ trans('menu.nav.abouts.staff') }}</a></li>
+							<li><a href="{{ path_for('c.charter.index') }}">{{ trans('menu.nav.abouts.charter') }}</a></li>
+						</ul>
+					</li>
+					<li><a href="#">{{ trans('menu.nav.group') }}</a></li>
+					<li>
+						<span class="opener">{{ trans('menu.nav.course.index') }}</span>
+						<ul>
+							<li><a href="#">{{ trans('menu.nav.course.intro') }}</a></li>
+							<li><a href="#">{{ trans('menu.nav.course.regulations') }}</a></li>
+							<li><a href="#">{{ trans('menu.nav.course.rules') }}</a></li>
+							<li><a href="#">{{ trans('menu.nav.course.common-problems') }}</a></li>
+							<li><a href="#">{{ trans('menu.nav.course.attachments') }}</a></li>
+						</ul>
+					</li>
+					<li><a href="#">{{ trans('menu.nav.links') }}</a></li>
+				</ul>
+			</nav>
+
+
+		<!-- Section -->
+			<section>
+				<header class="major">
+					<h2>{{ trans('contact.title') }}</h2>
+				</header>
+				<ul class="contact">
+					<li class="fa-envelope-o"><a href="#">{{ trans('contact.email') }}</a></li>
+					<li class="fa-phone">{{ trans('contact.tel') }}</li>
+					<li class="fa-phone">{{ trans('contact.fax') }}</li>
+					<li class="fa-home">
+						{{ trans('contact.address') }} <br>
+						{{ trans('contact.location')}}
+					</li>
+				</ul>
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<p class="copyright">&copy; 2017 Department of Psychology, <a href="{{ trans('contact.link') }}" target="_blank">NCKU</a>. </p>
+			</footer>
+
+	</div>
+</div>

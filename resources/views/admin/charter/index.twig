@@ -105,7 +105,7 @@
                             <tr>
                                 <td>{{ loop.index }}</td>
                                 <td>{{ charter.updated_at }}</td>
-                                <td>{{ charter.lang }}</td>
+                                <td>{% if charter.lang == 'chn' %} 中文 {% else %} 英文 {% endif %}</td>
                                 <td>
                                   <a href="{{ path_for('charter.search', {id: charter.id }) }}" class="btnCharterEdit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp;
                                   <a href="#" role="{{ charter.id }}" class="btnCharterDelete" title="刪除"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>

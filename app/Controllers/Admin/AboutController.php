@@ -6,8 +6,8 @@ use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Leopard\Controllers\Admin\Contracts\HandlerInterface;
 use Leopard\Models\Admin\Abouts;
-
 
 class AboutController{
 
@@ -19,12 +19,15 @@ class AboutController{
 
 	protected $about;
 
-	public function __construct(Twig $view, Router $router, Messages $flash, Abouts $about)
+	protected $interface;
+
+	public function __construct(Twig $view, Router $router, Messages $flash, Abouts $about, HandlerInterface $interface)
 	{
 		$this->view = $view;
 		$this->router = $router;
 		$this->flash = $flash;
 		$this->about = $about;
+		$this->interface = $interface;
 	}
 
 	public function index(Request $request, Response $response)
@@ -32,8 +35,11 @@ class AboutController{
 
 		$data = $this->getAllData();
 		$action_route = 'about.create';
+		$user = $this->interface->getUserInfo();
+		$setActive = $this->is_active();
+		
 
-		return $this->view->render($response, 'admin/about/index.twig', compact('action_route','data'));
+		return $this->view->render($response, 'admin/about/index.twig', compact('action_route','data','user'));
 	}
 
 	public function create(Request $request, Response $response){
@@ -92,8 +98,10 @@ class AboutController{
 
 		$data = $this->getAllData();
 		$action_route = 'about.update';
+		$user = $this->interface->getUserInfo();
+		$setActive = $this->is_active();
 
-		return $this->view->render($response, 'admin/about/index.twig', compact('action_route','about_own','data'));
+		return $this->view->render($response, 'admin/about/index.twig', compact('action_route','about_own','data','user'));
 	}
 
 	public function delete($id, Request $request, Response $response)
@@ -112,6 +120,11 @@ class AboutController{
 
 	private function getAllData(){
 		return $this->about->get();
+	}
+
+	private function is_active(){
+
+		$this->view->getEnvironment()->addGlobal('active',['about' => true, 'is_dropdown_about' => true]);
 	}
 
 }

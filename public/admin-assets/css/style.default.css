@@ -432,6 +432,7 @@ nav.side-navbar ul a:hover {
 
 nav.side-navbar ul li.active a {
   background: #EEF5F9;
+  font-weight: bold;
 }
 
 nav.side-navbar ul li.active a:hover {

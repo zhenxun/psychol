@@ -6,6 +6,7 @@ use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Leopard\Controllers\Admin\Contracts\HandlerInterface;
 use Leopard\Models\Admin\Charters;
 
 
@@ -19,12 +20,15 @@ class CharterController{
 
 	protected $charter;
 
-	public function __construct(Twig $view, Router $router, Messages $flash, Charters $charter)
+	protected $interface;
+
+	public function __construct(Twig $view, Router $router, Messages $flash, Charters $charter, HandlerInterface $interface)
 	{
 		$this->view = $view;
 		$this->router = $router;
 		$this->flash = $flash;
 		$this->charter = $charter;
+		$this->interface = $interface;
 	}
 
 	public function index(Request $request, Response $response)
@@ -32,8 +36,9 @@ class CharterController{
 
 		$data = $this->getAllData();
 		$action_route = 'about.create';
-
-		return $this->view->render($response, 'admin/charter/index.twig', compact('action_route','data'));
+		$user = $this->interface->getUserInfo();
+		$setActive = $this->is_active();
+		return $this->view->render($response, 'admin/charter/index.twig', compact('action_route','data', 'user'));
 	}
 
 	public function create(Request $request, Response $response){
@@ -105,12 +110,18 @@ class CharterController{
 
 		$data = $this->getAllData();
 		$action_route = 'charter.update';
-
-		return $this->view->render($response, 'admin/charter/index.twig', compact('action_route','charter_own','data'));		
+		$user = $this->interface->getUserInfo();
+		$setActive = $this->is_active();
+		return $this->view->render($response, 'admin/charter/index.twig', compact('action_route','charter_own','data','user'));		
 
 	}
 
 	private function getAllData(){
 		return $this->charter->get();
+	}
+
+	private function is_active(){
+
+		$this->view->getEnvironment()->addGlobal('active',['charter' => true, 'is_dropdown_about' => true]);
 	}
 }

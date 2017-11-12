@@ -1,0 +1,185 @@
+{% extends 'admin/templates/default.twig' %}
+
+{% block header %}
+    <header class="page-header">
+	    <div class="container-fluid">
+	      <h2 class="no-margin-bottom">系所成員</h2>
+	    </div>
+  	</header>
+{% endblock %}
+
+{% block content %}
+    <ul class="breadcrumb">
+        <div class="container-fluid">
+          	<li class="breadcrumb-item"><a href="{{ path_for('admin.home') }}">主選單</a></li>
+            <li class="breadcrumb-item active">系所成員</li>
+        </div>
+    </ul>
+
+    <div class="col-lg-12" style="margin-top:20px;">
+      <div class="card">
+        <div class="card-header d-flex align-items-center">
+          <h3 class="h4">新增系所成員</h3>
+        </div>
+        <div class="card-body">
+          <div style="padding-bottom:10px;">
+            {% include 'admin/templates/partials/flash.twig' %}
+            <small style="color:red;"><strong> (*) 必填 </strong></small>
+          </div>
+          <form class="form-horizontal" id="teacherForm" action="{{ path_for(action_route) }}" method="POST" enctype="multipart/form-data">
+
+          <div class="form-group row">
+            {% if teacher_own.lang == 'eng' %}
+                {% set chn = '' %}
+                {% set eng = 'checked' %}
+            {% else %}
+                {% set chn = 'checked' %}
+                {% set eng = '' %}
+            {% endif %}
+            <label class="col-sm-2 form-control-label">語言:<span style="color:red">(*)</span></label>
+                <div class="col-sm-10">
+                  <label class="checkbox-inline">
+                    <input id="inlineCheckbox1" type="radio" name="lang" value="chn" class="radio-template" {{ chn }}> 中文 <small>(預設)</small>
+                  </label>
+                  &nbsp;&nbsp;
+                  <label class="checkbox-inline">
+                    <input id="inlineCheckbox2" type="radio" name="lang" value="eng" class="radio-template" {{ eng }}> 英文 <small>(選擇英文將呈現於英文網頁)</small>
+                  </label>
+                </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">姓名: <span style="color:red">(*)</span></label>
+              <div class="col-sm-10">
+                <input type="text" name="name" class="form-control" value="{{ teacher_own.name }}">
+              </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">電子郵件: <span style="color:red">(*)</span></label>
+              <div class="col-sm-10">
+                <input type="email" name="email" class="form-control" value="{{ teacher_own.email }}">
+              </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">聯絡電話: <span style="color:red">(*)</span></label>
+              <div class="col-sm-10">
+                <input type="text" name="tel" class="form-control" value="{{ teacher_own.tel }}">
+              </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">照片: <span style="color:red">(*)</span></label>
+              <div class="col-sm-10">
+                <input type="file" name="photo" class="form-control">
+              </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">實驗室網站: </label>
+              <div class="col-sm-10">
+                <input type="text" name="lab-web" class="form-control" value="{{ teacher_own.lab_web }}">
+              </div>
+          </div>
+
+
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">實驗室介紹: </label>
+              <div class="col-sm-10">
+                <textarea name="introduce" id="editor1" rows="10" cols="80" placeholder="實驗室介紹">
+                  {{ teacher_own.introduce }}
+                </textarea>                
+              </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">論文／期刊: </label>
+              <div class="col-sm-10">
+                <textarea name="publications" id="editor2" rows="10" cols="80" placeholder="論文／期刊">
+                  {{ teacher_own.publications }}
+                </textarea>                
+              </div>
+          </div>
+
+              {% autoescape %}
+                <script>
+                    // Replace the <textarea id="editor1"> with a CKEditor
+                    // instance, using default configuration.
+                    CKEDITOR.replace( 'editor1');
+                    CKEDITOR.replace( 'editor2');
+                </script>
+              {% endautoescape %}
+
+            <div class="line"></div>
+                {% if action_route == 'teachers.update' %}
+                  <input type="hidden" name="update-id" value="{{ teacher_own.id }}">
+                {% endif %}
+            <div class="form-group row">
+              <div class="col-sm-12 text-right">
+                <button type="reset" class="btn btn-secondary">重置</button>
+                <button type="submit" class="btn btn-primary">儲存</button>
+              </div>
+            </div>            
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12" style="margin-top:20px;">
+      <div class="card">
+        <div class="card-header d-flex align-items-center">
+          <h3 class="h4">系所成員列表</h3>
+        </div>
+        <div class="card-body">
+            <table id="dataTable" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th width="25">序.</th>
+                        <th width="150">更新日期</th>
+                        <th width="80">語言</th>
+                        <th>姓名</th>
+                        <th>電子郵件</th>
+                        <th>聯絡電話</th>
+                        <th>詳細內容</th>
+                        <th width="100">編輯</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for teacher in data %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ teacher.updated_at }}</td>
+                        <td>{% if teacher.lang == 'chn' %} 中文 {% else %} 英文 {% endif %}</td>
+                        <td>{{ teacher.name }}</td>
+                        <td>{{ teacher.email }}</td>
+                        <td>{{ teacher.tel }}</td>
+                        <td><a href=""><small><strong>[詳]</strong></small></a></td>
+                        <td>
+                          <a href="{{ path_for('teachers.search', {id: teacher.id }) }}" class="btnTeacherEdit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp;
+                          <a href="#" role="{{ teacher.id }}" class="btnTeacherDelete" title="刪除"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

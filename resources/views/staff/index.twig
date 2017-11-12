@@ -1,0 +1,27 @@
+{% extends 'templates/default.twig' %}
+
+{% block content %}
+
+	<section>
+		<h2 id="content">{{ trans('menu.nav.abouts.staff') }}</h2>
+		<div class="about-content">
+		
+
+				<div class="row">
+					<div class="6u 12u$(small) ">
+					<div class="coming-soon-box">
+						<div class="coming-soon-content">
+							<h2>{{ trans('home.coming-soon.title') }}</h2>
+							<small>{{ trans('home.coming-soon.sub-title') }}</small>
+						</div>
+					</div>
+					</div>
+					<div class="6u$ 12u$(small)">
+						<img src="{{ base_url() }}/public-assets/images/pic12.jpg" class="image fit">
+					</div>
+				</div>
+
+		</div>
+	</section>
+
+{% endblock %}

@@ -6,6 +6,7 @@ use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Leopard\Controllers\Admin\Contracts\HandlerInterface;
 use Leopard\Models\Admin\Organizations;
 
 class OrganizationController{
@@ -18,13 +19,16 @@ class OrganizationController{
 
 	protected $organization;
 
+	protected $interface;
 
-	public function __construct(Twig $view, Router $router, Messages $flash, Organizations $organization)
+
+	public function __construct(Twig $view, Router $router, Messages $flash, Organizations $organization, HandlerInterface $interface)
 	{
 		$this->view = $view;
 		$this->router = $router;
 		$this->flash = $flash;
 		$this->organization = $organization;
+		$this->interface = $interface;
 	}
 
 	public function index(Request $request, Response $response)
@@ -32,8 +36,9 @@ class OrganizationController{
 
 		$data = $this->getAllData();
 		$action_route = 'organization.create';
-
-		return $this->view->render($response, 'admin/organization/index.twig', compact('action_route','data'));
+		$user = $this->interface->getUserInfo();
+		$setActive = $this->is_active();
+		return $this->view->render($response, 'admin/organization/index.twig', compact('action_route','data','user'));
 	}
 
 	public function create(Request $request, Response $response){
@@ -92,7 +97,8 @@ class OrganizationController{
 		$organization_own = $this->organization->where('id',$id)->first();
 		$data = $this->getAllData();
 		$action_route = 'organization.update';
-		return $this->view->render($response, 'admin/organization/index.twig', compact('action_route','organization_own','data'));
+		$user = $this->interface->getUserInfo();
+		return $this->view->render($response, 'admin/organization/index.twig', compact('action_route','organization_own','data','user'));
 
 	}
 
@@ -112,5 +118,10 @@ class OrganizationController{
 
 	private function getAllData(){
 		return $this->organization->get();
+	}
+
+	private function is_active(){
+
+		$this->view->getEnvironment()->addGlobal('active',['organization' => true, 'is_dropdown_about' => true]);
 	}
 }

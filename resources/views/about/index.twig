@@ -1,0 +1,12 @@
+{% extends 'templates/default.twig' %}
+
+{% block content %}
+
+	<section>
+		<h2 id="content">{{ trans('menu.nav.abouts.intro') }}</h2>
+		<div class="about-content">
+		{{ about|raw }}
+		</div>
+	</section>
+
+{% endblock %}

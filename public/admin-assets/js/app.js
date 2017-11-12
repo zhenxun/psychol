@@ -1,5 +1,5 @@
 $(document).ready(function(){
-var hostname ='http:\\\\' + window.location.hostname;
+var hostname ='http://' + window.location.hostname;
 var pathname = '/psychol/public/admin';
 
 	function callAjaxDelete(uri){
@@ -20,7 +20,11 @@ var pathname = '/psychol/public/admin';
 		});
 	}
 
-    $('#dataTable').DataTable();
+    $('#dataTable').DataTable({
+        "columnDefs": [
+            {"className": "dt-center", "targets": "_all"}
+        ]
+    });
 
     $("form#newsForm").validate({
     	ignore: [],
@@ -52,7 +56,8 @@ var pathname = '/psychol/public/admin';
     	if(confirm('確定刪除?')==true)
     	{
     		var getid = $(this).attr('role');
-    		var uri = hostname + pathname + "/news/" + getid; ;
+    		//var uri = hostname + pathname + "/news/" + getid; ;
+            var uri = "news/" + getid;
     		callAjaxDelete(uri);
     	}
     });
@@ -67,6 +72,18 @@ var pathname = '/psychol/public/admin';
     	}
     });
 
+
+    $(".btnCourseAboutDelete").click(function(e){
+        e.preventDefault();
+        if(confirm('確定刪除?')==true)
+        {
+            var getid = $(this).attr('role');
+            var uri = "/admin/course/about/" + getid; ;
+            callAjaxDelete(uri);
+        }
+    });
+
+
     $(".btnOrganizationDelete").click(function(e){
     	e.preventDefault();
     	if(confirm('確定刪除?')==true)
@@ -76,5 +93,26 @@ var pathname = '/psychol/public/admin';
     		callAjaxDelete(uri);
     	}
     });
+
+    $(".btnLocationDelete").click(function(e){
+        e.preventDefault();
+        if(confirm('確定刪除?')==true)
+        {
+            var getid = $(this).attr('role');
+            var uri = "/admin/location/" + getid; ;
+            callAjaxDelete(uri);
+        }
+    });
+
+    $(".btnBannerDelete").click(function(e){
+        e.preventDefault();
+        if(confirm('確定刪除?')==true)
+        {
+            var getid = $(this).attr('role');
+            var uri = "/admin/banner/" + getid; ;
+            callAjaxDelete(uri);
+        }
+    });
+
 
 });

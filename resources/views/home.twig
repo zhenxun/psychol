@@ -1,1 +1,91 @@
-Welcome use Slim3
+{% extends 'templates/default.twig' %}
+
+{% block banner %}
+{% include 'templates/partials/banner.twig' %}
+{% endblock %}
+
+
+{% block content %}
+<!-- Section  News-->
+<section>
+	<header class="news">
+		<h2>{{ trans('home.sections.news.title') }}</h2>
+	</header>
+	<div class="news-content">
+			<div class="table-wrapper">
+				<table>
+					<tbody>
+						{% for new in news %}
+							<tr>
+								<td><a href="{{ path_for('c.news.search', {'id':new.id}) }}">{{ new.title }}</a></td>
+								<td>於 {{ new.updated_at }} 發佈</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+	</div>
+</section>
+<!-- end Section News -->
+
+<!-- Section About us-->
+<section>
+	<header class="about-us">
+		<h2>{{ trans('home.sections.about.title') }}</h2>
+	</header>
+	<div class="about-content">
+			{{ showAboutContent|raw }}
+
+		<article>
+			<ul class="actions btn-more">
+				<li><a href="{{ path_for('c.about.index') }}" class="button big">{{ trans('home.buttons.more') }}</a></li>
+			</ul>
+		</article>
+	</div>
+ </section> 
+<!-- end Section About us -->
+
+
+<!-- Section About Course -->
+<section>
+	<header class="course-about">
+		<h2>{{ trans('home.sections.course-about.title') }}</h2>
+	</header>
+	<div class="about-content">
+			{{ showCourseAboutContent|raw }}...
+		<article>
+			<ul class="actions btn-more">
+				<li><a href="#" class="button big">{{ trans('home.buttons.more') }}</a></li>
+			</ul>
+		</article>
+	</div>
+</section> 
+<!-- end Section About Course -->
+
+
+<!-- Section Members -->
+<!-- <section>
+	<header class="members">
+		<h2>{{ trans(home.sections.members.title) }}</h2>
+	</header>
+	<div class="posts">
+	</div>
+</section> 
+ -->
+ <!-- end Section Member -->
+
+
+<!-- Section Our Location -->
+<section>
+	<header class="our-locations">
+		<h2>{{ trans('home.sections.location.title') }}</h2>
+	</header>
+	<div class="location-content">
+		<div class="location-map">
+				<img src="{{ base_url }}/upload/map/{{ location.map }}">
+		</div>
+	</div>
+</section> 
+<!-- end Section Our Location -->
+
+{% endblock %}

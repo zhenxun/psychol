@@ -1,0 +1,152 @@
+{% extends 'admin/templates/default.twig' %}
+
+{% block header %}
+    <header class="page-header">
+	    <div class="container-fluid">
+	      <h2 class="no-margin-bottom">標誌橫幅</h2>
+	    </div>
+  	</header>
+{% endblock %}
+
+{% block content %}
+    <ul class="breadcrumb">
+        <div class="container-fluid">
+          	<li class="breadcrumb-item"><a href="{{ path_for('admin.home') }}">主選單</a></li>
+            <li class="breadcrumb-item active">標誌橫幅</li>
+        </div>
+    </ul>
+
+    <div class="col-lg-12" style="margin-top:20px;">
+      <div class="card">
+        <div class="card-header d-flex align-items-center">
+          <h3 class="h4">新增標誌橫幅</h3>
+        </div>
+        <div class="card-body">
+          <div style="padding-bottom:10px;">
+            {% include 'admin/templates/partials/flash.twig' %}
+            <small style="color:red;"><strong> (*) 必填 </strong></small>
+          </div>
+          <form class="form-horizontal" id="aboutForm" action="{{ path_for(action_route) }}" method="POST" enctype="multipart/form-data">
+          <div class="form-group row">
+            {% if banner_own.lang == 'eng' %}
+                {% set chn = '' %}
+                {% set eng = 'checked' %}
+            {% else %}
+                {% set chn = 'checked' %}
+                {% set eng = '' %}
+            {% endif %}
+            <label class="col-sm-2 form-control-label">語言: <small></small></label>
+                <div class="col-sm-10">
+                  <label class="checkbox-inline">
+                    <input id="inlineCheckbox1" type="radio" name="lang" value="chn" class="radio-template" {{ chn }}> 中文 <small>(預設)</small>
+                  </label>
+                  &nbsp;&nbsp;
+                  <label class="checkbox-inline">
+                    <input id="inlineCheckbox2" type="radio" name="lang" value="eng" class="radio-template" {{ eng }}> 英文 <small>(選擇英文將呈現於英文網頁)</small>
+                  </label>
+                </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">標題: <span style="color:red">(*)</span></label>
+              <div class="col-sm-10">
+                <input type="text" name="title" class="form-control" placeholder="標題 Title" value="{{ banner_own.title }}">
+              </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">子標題: </label>
+              <div class="col-sm-10">
+                <input type="text" name="sub-title" class="form-control" placeholder="子標題 Sub title" value="{{ banner_own.sub_title }}">
+              </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">簡介:  <span style="color:red">(*)</span></label>
+              <div class="col-sm-10">
+                <textarea name="banner-intro" maxlength="50" cols="113" rows="5" placeholder="簡介最大字數爲50字" style="resize:none;">{{ banner_own.intro }}</textarea>
+              </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">圖片: <span style="color:red">(*)</span></label>
+              <div class="col-sm-10">
+                <input type="file" name="photo" class="form-control">
+              </div>
+          </div>
+
+          <div class="line"></div>
+
+          {% if banner_own.photo != '' %}
+          <div class="line"></div>
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">圖片預覽:</label>
+              <div class="col-sm-10">
+                  <img src="{{ base_url }}/upload/banner/{{ banner_own.photo }}" class="img-responsive">
+              </div>
+          </div>
+          {% endif %}
+
+
+          <div class="line"></div>
+
+                {% if action_route == 'banner.update' %}
+                  <input type="hidden" name="update-id" value="{{ banner_own.id }}">
+                {% endif %}
+            <div class="form-group row">
+              <div class="col-sm-12 text-right">
+                <button type="reset" class="btn btn-secondary">重置</button>
+                <button type="submit" class="btn btn-primary">儲存</button>
+              </div> 
+            </div>        
+        </form>
+      </div>
+    </div>
+  </div>
+
+    <div class="col-lg-12" style="margin-top:20px;">
+      <div class="card">
+        <div class="card-header d-flex align-items-center">
+          <h3 class="h4">地理位置列表</h3>
+        </div>
+        <div class="card-body">
+            <table id="dataTable" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th width="25">序.</th>
+                        <th width="150">更新日期</th>
+                        <th width="100">語言</th>
+                        <th width="100">標題</th>
+                        <th width="100">編輯</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for banner in data %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ banner.updated_at }}</td>
+                        <td>{{ banner.lang }}</td>
+                        <td>{{ banner.title }}</td>
+                        <td>
+                          <a href="{{ path_for('banner.search', {id: banner.id }) }}" class="btnBannerEdit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp;
+                          <a href="#" role="{{ banner.id }}" class="btnBannerDelete" title="刪除"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+
+
+{% endblock %}
+

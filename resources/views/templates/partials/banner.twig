@@ -1,0 +1,15 @@
+<section id="banner">
+	<div class="content">
+		<header>
+			<h1>{{ banner.title }}</h1>
+			<p>{{ banner.sub_title }}</p>
+		</header>
+		<p>{{ banner.intro }}</p>
+		<ul class="actions">
+			<li><a href="#" class="button big">{{ trans('home.buttons.banner-more') }}</a></li>
+		</ul>
+	</div>
+	<span class="image object">
+		<img src="{{ base_url()}}/upload/banner/{{ banner.photo }}" alt="{{ banner.title }}" />
+	</span>
+</section>

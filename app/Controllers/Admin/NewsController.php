@@ -7,6 +7,7 @@ use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Leopard\Controllers\Admin\Contracts\HandlerInterface;
 use Leopard\Models\Admin\News;
 use Leopard\Models\Admin\NewsAttachment;
 
@@ -23,13 +24,16 @@ class NewsController{
 
 	protected $attachment;
 
-	public function __construct(Twig $view, Router $router, News $news, NewsAttachment $attachment, Messages $flash)
+	protected $interface;
+
+	public function __construct(Twig $view, Router $router, News $news, NewsAttachment $attachment, Messages $flash, HandlerInterface $interface)
 	{
 		$this->view = $view;
 		$this->router = $router;
 		$this->news = $news;
 		$this->attachment = $attachment;
 		$this->flash = $flash;
+		$this->interface = $interface;
 	}
 
 	public function index(Request $request, Response $response)
@@ -37,8 +41,10 @@ class NewsController{
 
 		$data = $this->getAllData();
 		$action_route = 'news.create';
+		$user  = $this->interface->getUserInfo();
+		$setActive = $this->is_active();
 		
-		return $this->view->render($response, 'admin/news/index.twig', compact('data','action_route'));
+		return $this->view->render($response, 'admin/news/index.twig', compact('data','action_route','user'));
 	}
 	
 
@@ -72,10 +78,7 @@ class NewsController{
 				$hash_filename = hash('crc32', $filename);
 				$uploadFilename = date('YmdHsi').'_'.$i.'_'.$hash_filename.'.'.$fileExtension[1];
 
-				//window upload path
-				$upload_dir_window = env('WINUPLOADPATH');
-
-				$uri = $upload_dir_window.'/news/'.$uploadFilename;
+				$uri = $this->getSystemUploadPath().'/news/'.$uploadFilename;
 
 				if ($each_file[$i]->getError() === UPLOAD_ERR_OK)
 				{
@@ -135,6 +138,8 @@ class NewsController{
 			{
 				echo 1;
 			}
+
+			echo 1;
 			
 		}
 		else
@@ -166,8 +171,10 @@ class NewsController{
 
 		$data = $this->getAllData();
 		$action_route = 'news.update';
-
-		return $this->view->render($response, 'admin/news/index.twig', compact('action_route','news','numAttachment','attachment','data'));
+		$user = $this->interface->getUserInfo();
+		$setActive = $this->is_active();
+		
+		return $this->view->render($response, 'admin/news/index.twig', compact('action_route','news','numAttachment','attachment','data','user'));
 	}
 
 
@@ -208,10 +215,15 @@ class NewsController{
 				$hash_filename = hash('crc32', $filename);
 				$uploadFilename = date('YmdHsi').'_'.$i.'_'.$hash_filename.'.'.$fileExtension[1];
 
-				//window upload path
-				$upload_dir_window = env('WINUPLOADPATH');
 
-				$uri = $upload_dir_window.'/news/'.$uploadFilename;
+				//$path = $this->getSystemUploadPath().'/news';
+				//$check = (is_writable($path))? true:false;
+				$uri = $this->getSystemUploadPath().'/news/'.$uploadFilename;
+				//var_dump($path);
+				//var_dump($check);
+				//var_dump($uri);
+
+				//die();
 
 				if ($each_file[$i]->getError() === UPLOAD_ERR_OK)
 				{
@@ -234,5 +246,26 @@ class NewsController{
 		}
 
 		return true;
+	}
+
+	private function getSystemUploadPath(){
+		if(PHP_OS == 'Darwin' )
+		{
+			// MAC upload path
+			$upload_dir = env('MAC_UPLOAD_PATH');
+		}
+		else
+		{
+			//window upload path
+			$upload_dir = env('WIN_UPLOAD_PATH');
+		}
+
+		return $upload_dir;
+	}
+
+	private function is_active(){
+
+		$this->view->getEnvironment()->addGlobal('active',['news' => true]);
+
 	}
 }
