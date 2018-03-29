@@ -27,11 +27,11 @@ $capsule->bootEloquent();
 
 return [
 	'paths' => [
-		'migrations' => '/Applications/XAMPP/htdocs/psychol/database/migrations'
+		'migrations' => '/root/www/pims/database/migrations'
 	],
 	'migration_base_class' => 'Leopard\Database\Migrations\Migration',
 	'templates' =>[
-	  'file' => '/Applications/XAMPP/htdocs/psychol/app/Database/Migrations/MigrationStub.php'
+	  'file' => '/root/www/pims/app/Database/Migrations/MigrationStub.php'
 	],
 	'environments' =>[
 		'default_migration_table' => 'migrations',
