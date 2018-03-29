@@ -4,7 +4,7 @@
 
  	'config'=>[
 
- 		'locale' =>'zh-tw',
+ 		'locale' => 'zh-tw',
  		'default_locale'=> 'en'
  	]
 

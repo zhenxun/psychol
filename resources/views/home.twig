@@ -55,7 +55,7 @@
 			{{ showCourseAboutContent|raw }}...
 		<article>
 			<ul class="actions btn-more">
-				<li><a href="#" class="button big">{{ trans('home.buttons.more') }}</a></li>
+				<li><a href="{{ path_for('c.course.about.index') }}" class="button big">{{ trans('home.buttons.more') }}</a></li>
 			</ul>
 		</article>
 	</div>
@@ -82,7 +82,7 @@
 	</header>
 	<div class="location-content">
 		<div class="location-map">
-				<img src="{{ base_url }}/upload/map/{{ location.map }}">
+				<img src="{{ base_url() }}/upload/map/{{ location.map }}">
 		</div>
 	</div>
 </section> 

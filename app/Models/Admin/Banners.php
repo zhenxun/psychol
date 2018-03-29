@@ -17,6 +17,7 @@ class Banners extends Model{
 		'title',
 		'sub_title',
 		'intro',
+		'url',
 		'photo',
 		'updated_at',
 	];

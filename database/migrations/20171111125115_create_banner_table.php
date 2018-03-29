@@ -16,6 +16,7 @@ class CreateBannerTable extends Migration
             $table->string('title');
             $table->string('sub_title');
             $table->text('intro');
+            $table->text('url');
             $table->text('photo');
             $table->timestamps();
             $table->softDeletes();

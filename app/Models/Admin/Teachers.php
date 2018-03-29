@@ -17,11 +17,14 @@ class Teachers extends Model{
 		'name',
 		'email',
 		'tel',
+		'job',
+		'high_education',
 		'photo',
-		'lab-web',
-		'introduce',
-		'publications',
-		'updated_at'
+		'lab_web',
+		'expertise',
+		'own_dep',
+		'updated_at',
+		'sort'
 	];
 
 	protected $dates = ['deleted_at'];	

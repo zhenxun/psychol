@@ -17,26 +17,31 @@
 					<li><a href="{{ path_for('home') }}">{{ trans('menu.nav.home') }}</a></li>
 					<li><a href="{{ path_for('c.news.index') }}">{{ trans('menu.nav.news') }}</a></li>
 					<li>
-						<span class="opener">{{ trans('menu.nav.abouts.index') }}</span>
+						<span class="opener {% if active.is_dropdown_about == 'true' %} active {% endif %}">{{ trans('menu.nav.abouts.index') }}</span>
 						<ul>
-							<li><a href="{{ path_for('c.about.index') }}">{{ trans('menu.nav.abouts.intro') }}</a></li>
-							<li><a href="{{ path_for('c.organization.index') }}">{{ trans('menu.nav.abouts.organization') }}</a></li>
-							<li><a href="{{ path_for('c.staff.index') }}">{{ trans('menu.nav.abouts.staff') }}</a></li>
-							<li><a href="{{ path_for('c.charter.index') }}">{{ trans('menu.nav.abouts.charter') }}</a></li>
+							<li {% if active.intro == 'true' %} class="isActive" {% endif %}><a href="{{ path_for('c.about.index') }}">{{ trans('menu.nav.abouts.intro') }}</a></li>
+							<li {% if active.origin == 'true' %} class="isActive" {% endif %}><a href="{{ path_for('c.course.about.index') }}">{{ trans('menu.nav.abouts.origin') }}</a></li>
+							<li {% if active.develop == 'true' %} class="isActive" {% endif %} ><a href="{{ path_for('c.about.develop.index') }}">{{ trans('menu.nav.abouts.develop') }}</a></li>
+							<li {% if active.trend == 'true' %} class="isActive" {% endif %}><a href="{{ path_for('c.about.trend.index') }}">{{ trans('menu.nav.abouts.trend') }}</a></li>
 						</ul>
 					</li>
-					<li><a href="#">{{ trans('menu.nav.group') }}</a></li>
+					<li {% if active.courseRegulations == 'true' %} class="isActive" {% endif %}><a href="{{ path_for('c.course.regulation.index') }}">{{ trans('menu.nav.regulations') }}</a></li>
 					<li>
-						<span class="opener">{{ trans('menu.nav.course.index') }}</span>
+						<span class="opener {% if active.is_dropdown_member == 'true' %} active {% endif %}">{{ trans('menu.nav.group.index') }}</span>
 						<ul>
-							<li><a href="#">{{ trans('menu.nav.course.intro') }}</a></li>
-							<li><a href="#">{{ trans('menu.nav.course.regulations') }}</a></li>
-							<li><a href="#">{{ trans('menu.nav.course.rules') }}</a></li>
-							<li><a href="#">{{ trans('menu.nav.course.common-problems') }}</a></li>
-							<li><a href="#">{{ trans('menu.nav.course.attachments') }}</a></li>
+							<li  {% if active.teachers == 'true' %} class="isActive" {% endif %}><a href="{{ path_for('c.teachers.index') }}">{{ trans('menu.nav.group.teachers') }}</a></li>
+							<li {% if active.staff == 'true' %} class="isActive" {% endif %}><a href="{{ path_for('c.staff.index') }}">{{ trans('menu.nav.group.staff') }}</a></li>
 						</ul>
 					</li>
-					<li><a href="#">{{ trans('menu.nav.links') }}</a></li>
+					<li>
+						<span class="opener {% if active.is_dropdown_course == 'true' %} active {% endif %}">{{ trans('menu.nav.course.index') }}</span>
+						<ul>
+							<li {% if active.rules == 'true' %} class="isActive" {% endif %}><a href="{{ path_for('c.course.rules.index') }}">{{ trans('menu.nav.course.rules') }}</a></li>					
+						</ul>
+					</li>
+					<li {% if active.downloads == 'true' %} class="isActive" {% endif %}><a href="{{ path_for('c.downloads.index') }}">{{ trans('menu.nav.attachments') }}</a></li>
+					<li {% if active.commonProblem == 'true' %} class="isActive" {% endif %}><a href="{{ path_for('c.common.problem.index') }}">{{ trans('menu.nav.common-problems') }}</a></li>
+					<li {% if active.link == 'true' %} class="isActive" {% endif %}><a href="{{ path_for('c.related.link.index') }}">{{ trans('menu.nav.links') }}</a></li>
 				</ul>
 			</nav>
 

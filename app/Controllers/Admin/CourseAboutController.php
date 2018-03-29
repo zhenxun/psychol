@@ -125,6 +125,6 @@ class CourseAboutController{
 
 	private function is_active(){
 
-		$this->view->getEnvironment()->addGlobal('active',['courseAbout' => true, 'is_dropdown_course' => true]);
+		$this->view->getEnvironment()->addGlobal('active',['courseAbout' => true, 'is_dropdown_about' => true]);
 	}
 }

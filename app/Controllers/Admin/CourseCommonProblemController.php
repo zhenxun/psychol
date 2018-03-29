@@ -129,6 +129,6 @@ class CourseCommonProblemController{
 
 	private function is_active(){
 
-		$this->view->getEnvironment()->addGlobal('active',['courseCommon' => true, 'is_dropdown_course' => true]);
+		$this->view->getEnvironment()->addGlobal('active',['commonProblem' => true]);
 	}
 }

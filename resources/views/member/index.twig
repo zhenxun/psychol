@@ -1,0 +1,118 @@
+{% extends 'templates/default.twig' %}
+
+{% block content %}
+
+	<section>
+		<h2 id="content">{{ trans('menu.nav.group.teachers') }}</h2>
+		
+		<div class="tabHeader">
+			{% for dep in deps%}
+				{% if loop.index == 1 %}
+					{% set active = 'active' %}
+				{% else %}
+					{% set active = '' %}
+				{% endif %}
+			<div class="tab" role="tab{{dep.id}}">
+				<div><h3 id="tab{{dep.id}}"class="{{ active }}" >{{ dep.title }}</h3></div>
+			</div>
+			{% endfor %}
+		</div>
+
+
+		{% for teacher in members %}
+			{% if teacher.own_dep == '1' or teacher.own_dep == '5'%}
+			<div class="box tab-inner tab{{teacher.own_dep}} show" >
+				<div class="tearcherGridBox">
+					<div class="photo">
+						<img src="{{ base_url() }}/upload/teachers/{{ teacher.photo }}">
+					</div>
+					<div class="container">
+					 <p><h3><strong>{{ teacher.name }}</strong></h3></p>
+					 {% if teacher.high_education != '' %}
+					 <p>{{ trans('member.highest_education') }}： {{ teacher.high_education }}</p>
+					 {% endif %}
+					 <p>{{ trans('member.email') }}： <a href="mailto: {{ teacher.email }}">{{ teacher.email }}</a></p>
+					 <p>{{ trans('member.contact') }}： {{ teacher.tel }}</p>
+					 <p>{{ trans('member.website') }}：<a href="{{ teacher.lab_web }}">{{ teacher.lab_web }}</a></p>
+					 <p>{{ trans('member.expertise') }}：{{ teacher.expertise }}
+					</div>
+				</div>
+			</div>
+			{% endif %}
+		{% endfor %}
+
+
+		{% for teacher in members %}
+			{% if teacher.own_dep == '2' or teacher.own_dep == '6'%}
+			<div class="box tab-inner tab{{teacher.own_dep}}" >
+				<div class="tearcherGridBox">
+					<div class="photo">
+						<img src="{{ base_url() }}/upload/teachers/{{ teacher.photo }}">
+					</div>
+					<div class="container">
+					 <p><h3><strong>{{ teacher.name }}</strong></h3></p>
+					 {% if teacher.high_education != '' %}
+					 <p>{{ trans('member.highest_education') }}： {{ teacher.high_education }}</p>
+					 {% endif %}
+					 <p>{{ trans('member.email') }}： <a href="mailto: {{ teacher.email }}">{{ teacher.email }}</a></p>
+					 <p>{{ trans('member.contact') }}： {{ teacher.tel }}</p>
+					 <p>{{ trans('member.website') }}：<a href="{{ teacher.lab_web }}">{{ teacher.lab_web }}</a></p>
+					 <p>{{ trans('member.expertise') }}：{{ teacher.expertise }}
+					</div>
+				</div>
+			</div>
+			{% endif %}
+		{% endfor %}
+
+		{% for teacher in members %}
+
+			{% if teacher.own_dep == '3' or teacher.own_dep == '7'%}
+			<div class="box tab-inner tab{{teacher.own_dep}}">
+				<div class="tearcherGridBox">
+					<div class="photo">
+						<img src="{{ base_url() }}/upload/teachers/{{ teacher.photo }}">
+					</div>
+					<div class="container">
+					 <p><h3><strong>{{ teacher.name }}</strong></h3></p>
+					 {% if teacher.high_education != '' %}
+					 <p>{{ trans('member.highest_education') }}： {{ teacher.high_education }}</p>
+					 {% endif %}
+					 <p>{{ trans('member.email') }}： <a href="mailto: {{ teacher.email }}">{{ teacher.email }}</a></p>
+					 <p>{{ trans('member.contact') }}： {{ teacher.tel }}</p>
+					 <p>{{ trans('member.website') }}：<a href="{{ teacher.lab_web }}">{{ teacher.lab_web }}</a></p>
+					 <p>{{ trans('member.expertise') }}：{{ teacher.expertise }}
+					</div>
+				</div>
+			</div>
+			{% endif %}
+		{% endfor %}
+		{% for teacher in members %}
+
+
+			{% if teacher.own_dep == '4' or teacher.own_dep == '8'%}
+			<div class="box tab-inner tab{{teacher.own_dep}}" >
+				<div class="tearcherGridBox">
+					<div class="photo">
+						<img src="{{ base_url() }}/upload/teachers/{{ teacher.photo }}">
+					</div>
+					<div class="container">
+					 <p><h3><strong>{{ teacher.name }}</strong></h3></p>
+					 {% if teacher.high_education != '' %}
+					 <p>{{ trans('member.highest_education') }}： {{ teacher.high_education }}</p>
+					 {% endif %}
+					 <p>{{ trans('member.email') }}： <a href="mailto: {{ teacher.email }}">{{ teacher.email }}</a></p>
+					 <p>{{ trans('member.contact') }}： {{ teacher.tel }}</p>
+					 <p>{{ trans('member.website') }}：<a href="{{ teacher.lab_web }}">{{ teacher.lab_web }}</a></p>
+					 <p>{{ trans('member.expertise') }}：{{ teacher.expertise }}
+					</div>
+				</div>
+			</div>
+			{% endif %}
+
+
+
+		{% endfor %}
+
+	</section>
+
+{% endblock %}

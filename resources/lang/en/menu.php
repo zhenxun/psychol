@@ -11,19 +11,22 @@ return[
 			'abouts' => [
 				'index' => 'About us',
 				'intro' => 'Introduction',
-				'organization' => 'Organization',
-				'staff' => 'Our staff',
-				'charter' => 'Article of Association'
+				'origin' => 'Origin',
+				'develop' => 'Directions for Establishment',
+				'trend' => 'Trend',
 			],
-			'group' => 'Members',
+			'regulations' => 'Regulations',
+			'group' => [
+				'index' => 'Our Members',
+				'teachers' => 'Teachers',
+				'staff' => 'Staff'
+			],
 			'course' => [
-				'index' => 'Credit course',
-				'intro' => 'Introduction',
-				'regulations' => 'Regulations',
-				'rules' => 'Course',
-				'common-problems' => 'FAQ',
-				'attachments' => 'Downloads'
+				'index' => 'Credit Courses',
+				'rules' => 'Academic Regulations'
 			],
+			'attachments' => 'Downloads',			
+			'common-problems' => 'FAQ',			
 			'links' => 'Related link' 
 		],
 	] 

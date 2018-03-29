@@ -1,9 +1,11 @@
 .about-content p{
 	font-family: "Arial", serif !important;
-	font-size:18px !important;
+	// font-size:18px !important;
 	font-weight:normal;
 	color: #000000 !important;
-	// line-height:1px;
+	// line-height:2.5 !important;
+	text-align: justify;
+    text-justify: inter-word;
 }
 
 .btn-more{
@@ -30,4 +32,8 @@
 	text-align:center;
 	padding-top:150px;
 
+}
+
+.isActive a{
+	color: #000000 !important;
 }

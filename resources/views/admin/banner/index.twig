@@ -74,6 +74,14 @@
               </div>
           </div>
 
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">連結:  <span style="color:red">(*)</span></label>
+              <div class="col-sm-10">
+                <input type="text" name="url" class="form-control" placeholder="連結" value="{{ banner_own.url }}">
+              </div>
+          </div>
+
+
           <div class="line"></div>
 
           <div class="form-group row">
@@ -90,6 +98,7 @@
           <div class="form-group row">
               <label class="col-sm-2 form-control-label">圖片預覽:</label>
               <div class="col-sm-10">
+                  <input type="hidden" name="old-photo" value="{{ banner_own.photo }}">
                   <img src="{{ base_url }}/upload/banner/{{ banner_own.photo }}" class="img-responsive">
               </div>
           </div>

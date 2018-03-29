@@ -12,39 +12,48 @@
   <ul class="list-unstyled">
     <li {% if active.banner == true %} class="active" {% endif %}> <a href="{{ path_for('banner.index') }}"><i class="fa fa-sticky-note-o" aria-hidden="true"></i>標誌橫幅</a></li>
 
-    <li {% if active.news == true %} class="active" {% endif %}> <a href="{{ path_for('news.index') }}"><i class="icon-home"></i>最新消息</a></li>
+    <li {% if active.news == true %} class="active" {% endif %}> <a href="{{ path_for('news.index') }}"><i class="fa fa-info" aria-hidden="true"></i>最新消息</a></li>
     
-    <li><a href="#about" aria-expanded="{% if active.is_dropdown_about == true %} true {% else %} false {% endif %}" data-toggle="collapse"> <i class="icon-interface-windows"></i>關於我們</a>
+    <li>
+      <a href="#about" aria-expanded="{% if active.is_dropdown_about == true %} true {% else %} false {% endif %}" data-toggle="collapse"><i class="fa fa-paw" aria-hidden="true"></i>關於我們</a>
       <ul id="about" class="collapse list-unstyled {% if active.is_dropdown_about == true %} show {% endif %}">
         <li {% if active.about == true %} class="active" {% endif %}><a href="{{ path_for('about.index') }}">系所簡介</a></li>
-        <li {% if active.organization == true %} class="active" {% endif %}><a href="{{ path_for('organization.index') }}">組織架構</a></li>
-        <li><a href="#">服務團隊</a></li>
-        <li {% if active.charter == true %} class="active" {% endif %}><a href="{{ path_for('charter.index') }}">章程與設置要點</a></li>
+        <li {% if active.courseAbout == true %} class="active" {% endif %}><a href="{{ path_for('course.about.index') }}">緣起與簡介</a></li>        
+        <li {% if active.develop == true %} class="active" {% endif %}><a href="{{ path_for('develop.index') }}">發展方向與重點</a></li>
+        <li {% if active.trend == true %} class="active" {% endif %}><a href="{{ path_for('trend.index') }}">與世界學術潮流之趨勢</a></li>
       </ul>
     </li>
-    <li {% if active.teachers == true %} class="active" {% endif %}> <a href="{{ path_for('teachers.index') }}"><i class="icon-home"></i>系所成員</a></li>
+  
+    <li {% if active.courseRegulations == true %} class="active" {% endif %}> <a href="{{ path_for('course.regulations.index') }}"><i class="fa fa-gavel" aria-hidden="true"></i>設置辦法</a></li>
+
+    <li><a href="#members" aria-expanded="{% if active.is_dropdown_members == true %} true {% else %} false {% endif %}" data-toggle="collapse"> <i class="fa fa-users" aria-hidden="true"></i>系所成員 </a>
+
+    <ul id="members" class="collapse list-unstyled {% if active.is_dropdown_members == true %} show {% endif %}">
+      <li {% if active.teachers == true %} class="active" {% endif %}> <a href="{{ path_for('teachers.index') }}">教師</a></li>
+      <li {% if active.staff == true %} class="active" {% endif %}> <a href="{{ path_for('staff.index') }}">行政人員</a></li>
+      <li {% if active.dep == true %} class="active" {% endif %}> <a href="{{ path_for('department.index') }}">系所</a></li>
+    </ul>
+
+    </li>
+
     <li><a href="#course" aria-expanded="{% if active.is_dropdown_course == true %} true {% else %} false {% endif %}" data-toggle="collapse"> <i class="icon-interface-windows"></i>學位學程 </a>
+
       <ul id="course" class="collapse list-unstyled {% if active.is_dropdown_course == true %} show {% endif %}">
-        <li {% if active.courseAbout == true %} class="active" {% endif %}><a href="{{ path_for('course.about.index') }}">緣起與簡介</a></li>
-        <li {% if active.courseRegulations == true %} class="active" {% endif %}><a href="{{ path_for('course.regulations.index') }}">設置辦法</a></li>
-        <li {% if active.course == true %} class="active" {% endif %}><a href="{{ path_for('course.index') }}">修課規定</a></li>
-        <li {% if active.courseCommon == true %} class="active" {% endif %}><a href="{{ path_for('course.common.problem.index') }}">常見問題</a></li>
-        <li><a href="#">文件下載</a></li>
+        <li {% if active.courseRules == true %} class="active" {% endif %}><a href="{{ path_for('course.rules.index') }}">修課規定</a></li>
+        <li {% if active.course == true %} class="active" {% endif %}><a href="{{ path_for('course.index') }}">修課課程</a></li> 
       </ul>
     </li>
-    <li><a href="#facilities" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>核心設施 </a>
-      <ul id="facilities" class="collapse list-unstyled">
-        <li><a href="#">核心實驗室</a></li>
-        <li><a href="#">使用規範</a></li>
-        <li><a href="#">申請表單</a></li>
-      </ul>
-    </li>
-    <li {% if active.links == true %} class="active" {% endif %}> <a href="{{ path_for('link.index') }}"> <i class="icon-grid"></i>相關連結 </a></li>
+
+    <li {% if active.attach == true %} class="active" {% endif %}><a href="{{ path_for('download.index') }}"><i class="fa fa-cloud-download" aria-hidden="true"></i>文件下載</a></li>
+
+    <li {% if active.commonProblem == true %} class="active" {% endif %}><a href="{{ path_for('course.common.problem.index') }}"><i class="fa fa-question" aria-hidden="true"></i>常見問題</a></li>
+
+    <li {% if active.links == true %} class="active" {% endif %}> <a href="{{ path_for('link.index') }}"><i class="fa fa-link" aria-hidden="true"></i>相關連結 </a></li>
     <li {% if active.locations == true %} class="active" {% endif %}> <a href="{{ path_for('location.index') }}"> <i class="fa fa-map-signs" aria-hidden="true"></i>地理位置 </a></li>
   </ul><span class="heading">系統設定</span>
   <ul class="list-unstyled">
-    <li {% if active.users == true %} class="active" {% endif %}> <a href="{{ path_for('users.index') }}"> <i class="icon-flask"></i>帳號管理 </a></li>
-    <li {% if active.changePwd == true %} class="active" {% endif %}> <a href="{{ path_for('change.password.index') }}"> <i class="icon-screen"></i>密碼變更 </a></li>
-    <li> <a href="{{ path_for('logout') }}"> <i class="icon-mail"></i>登出 </a></li>
+    <li {% if active.users == true %} class="active" {% endif %}> <a href="{{ path_for('users.index') }}"> <i class="fa fa-user" aria-hidden="true"></i>帳號管理 </a></li>
+    <li {% if active.changePwd == true %} class="active" {% endif %}> <a href="{{ path_for('change.password.index') }}"><i class="fa fa-key" aria-hidden="true"></i>密碼變更 </a></li>
+    <li> <a href="{{ path_for('logout') }}"> <i class="fa fa-sign-out" aria-hidden="true"></i>登出 </a></li>
   </ul>
 </nav>

@@ -16,11 +16,13 @@
 				{{ new.contents|raw }}
 				
 			</div>
+			{% if search != true %}
 			<div class="footer">
 				<ul class="actions news-more-btn" style="text-align:right;">
 					<li><a href="{{ path_for('c.news.search', {'id': new.id}) }}" class="button">{{ trans('home.buttons.more') }}</a></li>
 				</ul>
 			</div>
+			{% endif %}
 		</div>
 		{% endfor %}
 		

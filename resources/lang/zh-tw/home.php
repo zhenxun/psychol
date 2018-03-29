@@ -46,7 +46,14 @@ return [
 				'title' => '地理位置'
 			]
 
-		]
+		],
+
+		'noData' => '目前無相關資料',
+		'downloadTable' => [
+			'title' => '標題',
+			'file' => '文件'
+		],
+
 	]
 
 ];

@@ -3,9 +3,29 @@
 {% block content %}
 
 	<section>
-		<h2 id="content">{{ trans('menu.nav.abouts.staff') }}</h2>
+		<h2 id="content">{{ trans('menu.nav.group.staff') }}</h2>
 		<div class="about-content">
-		
+
+			{% if staffs is not empty %}
+
+				{% for staff in staffs %}
+
+				<div class="box" >
+					<div class="staffGridBox">
+						<div class="photo">
+							<img src="{{ base_url() }}/upload/staffs/{{ staff.photo }}">
+						</div>
+						<div class="container">
+						 <p><h2><strong>{{ staff.name }}</strong></h2></p>
+						 <p>{{ trans('staff.email') }}： <a href="mailto: {{ staff.email }}">{{ staff.email }}</a></p>
+						 <p>{{ trans('staff.contact') }}： {{ staff.tel }}</p>
+						</div>
+					</div>
+				</div>					
+
+				{% endfor %}
+
+			{% else %}
 
 				<div class="row">
 					<div class="6u 12u$(small) ">
@@ -20,6 +40,8 @@
 						<img src="{{ base_url() }}/public-assets/images/pic12.jpg" class="image fit">
 					</div>
 				</div>
+
+			{% endif %}
 
 		</div>
 	</section>

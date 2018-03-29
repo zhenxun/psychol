@@ -42,17 +42,27 @@ class HomeController{
 
 	public function index(Request $request, Response $response){
 
+		$locale = ($this->getLocale() == 'en')? 'eng':'chn';
+
 		$banner = $this->banner->orderBy('updated_at','desc')->first();
 		$news = $this->news->orderBy('updated_at','desc')->get();
-		$about = $this->about->where('lang','chn')->first();
-		$courseAbout = $this->courseAbout->where('lang','chn')->first();
-		$location = $this->location->where('lang','chn')->first();
+		$about = $this->about->where('lang', $locale)->first();
+		$courseAbout = $this->courseAbout->where('lang', $locale)->first();
+		$location = $this->location->where('lang', $locale)->first();
 
-		$showAboutContent = html_entity_decode(mb_substr($about->content, 0, 530,'utf8'));
-		$showCourseAboutContent = html_entity_decode(mb_substr($courseAbout->content, 0, 474, 'utf8'));
+		$headerClearFix = ($locale == 'eng')? '<br>':'';
 
-		return $this->view->render($response, 'home.twig', compact('banner','news','showAboutContent', 'showCourseAboutContent','location'));
+		$showAboutContent = (!empty($about->content))? html_entity_decode(mb_substr($about->content, 0, 530,'utf8')):'';
+		$showCourseAboutContent = (!empty($courseAbout->content))? html_entity_decode(mb_substr($courseAbout->content, 0, 474, 'utf8')):'';
+
+		return $this->view->render($response, 'home.twig', compact('banner','news','showAboutContent', 'showCourseAboutContent','location','headerClearFix'));
 	}
 
+	private function getLocale(){
+		if(isset($_SESSION['lang']))
+		{
+			return $_SESSION['lang'];
+		}		
+	}
 	
 }

@@ -38,6 +38,8 @@ class NewsController{
 
 		$news[] = $new;
 
-		return $this->view->render($response, 'news/index.twig',compact('news'));
+		$search = true;
+
+		return $this->view->render($response, 'news/index.twig',compact('news','search'));
 	}
 }

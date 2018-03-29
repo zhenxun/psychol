@@ -41,11 +41,22 @@ var pathname = '/psychol/public/admin';
     });
 
 
+    var ownDep = $('.ownDep').val();
+    $('#own-dep option').each(function(){
+        var value = $(this).val()
+        if(value === ownDep)
+        {
+            $(this).attr('selected','true');
+        }
+
+    });
+
+
     $(".btnNewsFileDelete").click(function(e){
     	e.preventDefault();
 		if (confirm('確定刪除?')==true){ 
 			var getid = $(this).attr('role');
-			var uri = hostname + pathname + "/news/file/" + getid; ;
+			var uri = pathname + "/news/file/" + getid; ;
 			callAjaxDelete(uri);
 		}
     });
@@ -57,7 +68,7 @@ var pathname = '/psychol/public/admin';
     	{
     		var getid = $(this).attr('role');
     		//var uri = hostname + pathname + "/news/" + getid; ;
-            var uri = "news/" + getid;
+            var uri = pathname +  "/news/" + getid;
     		callAjaxDelete(uri);
     	}
     });
@@ -67,7 +78,7 @@ var pathname = '/psychol/public/admin';
     	if(confirm('確定刪除?')==true)
     	{
     		var getid = $(this).attr('role');
-    		var uri = hostname + pathname + "/about/" + getid; ;
+    		var uri = pathname + "/about/" + getid; ;
     		callAjaxDelete(uri);
     	}
     });
@@ -78,7 +89,7 @@ var pathname = '/psychol/public/admin';
         if(confirm('確定刪除?')==true)
         {
             var getid = $(this).attr('role');
-            var uri = "/admin/course/about/" + getid; ;
+            var uri = pathname + "/course/about/" + getid; ;
             callAjaxDelete(uri);
         }
     });
@@ -89,7 +100,7 @@ var pathname = '/psychol/public/admin';
     	if(confirm('確定刪除?')==true)
     	{
     		var getid = $(this).attr('role');
-    		var uri = hostname + pathname + "/organization/" + getid; ;
+    		var uri = pathname + "/organization/" + getid; ;
     		callAjaxDelete(uri);
     	}
     });
@@ -99,7 +110,7 @@ var pathname = '/psychol/public/admin';
         if(confirm('確定刪除?')==true)
         {
             var getid = $(this).attr('role');
-            var uri = "/admin/location/" + getid; ;
+            var uri = pathname + "/location/" + getid; ;
             callAjaxDelete(uri);
         }
     });
@@ -109,10 +120,70 @@ var pathname = '/psychol/public/admin';
         if(confirm('確定刪除?')==true)
         {
             var getid = $(this).attr('role');
-            var uri = "/admin/banner/" + getid; ;
+            var uri = pathname + "/banner/" + getid; ;
             callAjaxDelete(uri);
         }
     });
+
+    $(".btnCourseRulesDelete").click(function(e){
+        e.preventDefault();
+        if(confirm('確定刪除?')==true)
+        {
+            var getid = $(this).attr('role');
+            var uri = pathname + "/course/rules/" + getid; ;
+            callAjaxDelete(uri);
+        }
+
+    });
+
+    $(".btnCommonProblemDelete").click(function(e){
+        e.preventDefault();
+        if(confirm('確定刪除?')==true)
+        {
+            var getid = $(this).attr('role');
+            var uri = pathname + "/course/common-problem/" + getid; ;
+            callAjaxDelete(uri);
+        }
+    });
+
+    $(".btnLinkDelete").click(function(e){
+        e.preventDefault();
+        if(confirm('確定刪除?')==true)
+        {
+            var getid = $(this).attr('role');
+            var uri = pathname + "/link/" + getid; ;
+            callAjaxDelete(uri);
+        }
+    });
+
+    $('.openUploader').click(function(e){
+        e.preventDefault();
+        $("#modal-uploader").modal('show');
+    });
+
+    $('.uploaderSave').click(function(e){
+        e.preventDefault();
+
+        var upload = $.ajax({
+            url: pathname + '/gallery',
+            type: 'POST',
+            cache: false,
+            data: new FormData($('#uploaderForm')[0]),
+            processData: false,
+            contentType: false
+        });
+
+        upload.success(function(res){
+            console.log(res);
+        });
+
+        upload.fail(function(res){
+            console.log("Request failed: " + res.toString());
+        });
+
+    });
+
+
 
 
 });

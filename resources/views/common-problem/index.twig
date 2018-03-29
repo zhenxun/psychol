@@ -1,0 +1,30 @@
+{% extends 'templates/default.twig' %}
+
+{% block content %}
+
+	<section>
+		<h2 id="content">{{ trans('menu.nav.common-problems') }}</h2>
+		<div class="about-content">
+
+			{% if commonProblems is not empty %}
+
+				{% for commonProblem in commonProblems %}
+					<blockquote>
+						<div class="block1"><a href="" class="toggleShowAns" role="{{loop.index}}">{{ commonProblem.title }}</a></div>
+						<div class="block2"><i id="show-ans{{loop.index}}" role="{{loop.index}}" class="fa fa-chevron-down show-ans" aria-hidden="true"></i></div>
+					</blockquote>
+					<div class="box box-blockquote" id="AnsBox{{loop.index}}">
+						<p>{{ commonProblem.answer }}</p>
+					</div>
+				{% endfor %}
+
+			{%  else %}
+
+			<blockquote>{{ trans('home.noData') }}</blockquote>
+
+			{% endif %}
+
+		</div>
+	</section>
+
+{% endblock %}

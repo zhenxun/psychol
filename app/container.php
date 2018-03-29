@@ -12,6 +12,8 @@ use Noodlehaus\Config;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Finder\Finder;
+use Intervention\Image\ImageManager;
+
 
 
 return [
@@ -54,7 +56,25 @@ return [
 
 		$config = $c->get('config');
 
-		$translator = new Translator($config->get('config.locale'));
+		if(isset($_GET['lang']))
+		{
+			$locale = $_GET['lang'];
+			$_SESSION['lang'] = $locale;
+		}
+		else
+		{
+			if(isset($_SESSION['lang']))
+			{
+				$locale = $_SESSION['lang'];
+			}
+			else
+			{
+				$locale = $config->get('config.locale');
+			}
+			
+		}
+
+		$translator = new Translator($locale);
 		$translator->setFallbackLocales([$config->get('config.default_locale')]);
 		$translator->addLoader('array', new ArrayLoader);
 
@@ -76,6 +96,10 @@ return [
 
 	HandlerInterface::class => function(ContainerInterface $c){
 		return new MainController;
+	},
+
+	ImageManager::class => function(ContainerInterface $c){
+		return new ImageManager;
 	}
 
 

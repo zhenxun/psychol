@@ -1,0 +1,41 @@
+div.box{
+	border-top:0 !important;
+	border-left:0 !important;
+	border-right:0 !important;
+}
+
+div.staffGridBox{
+	display: grid;
+	grid-template-columns: 0.25fr 0.75fr;
+	grid-template-rows: auto;
+	grid-template-areas: " photo container";
+	box-sizing: border-box;
+}
+
+@media (max-width:900px){
+
+	div.staffGridBox{
+		display: block;
+	}
+
+	p{
+		text-align:initial !important;
+	}
+
+	.photo{
+		max-width: 100%;
+	}
+
+	.container{
+		max-width: 100%;
+	}
+}
+
+.photo{
+	text-align: center;
+	grid-area: photo;
+}
+
+.container{
+	grid-area: container;
+}

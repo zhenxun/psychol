@@ -1,0 +1,18 @@
+{% extends 'templates/default.twig' %}
+
+{% block content %}
+
+	<section>
+		<h2 id="content">{{ trans('menu.nav.links') }}</h2>
+		<div class="about-content">
+
+		<ul class="alt">
+			{% for link in links %}
+				<li>{{ loop.index }} . <a href="{{ link.uri }}" target="_blank">{{ link.title }}</a></li>
+			{% endfor %}
+		</ul>
+
+		</div>
+	</section>
+
+{% endblock %}

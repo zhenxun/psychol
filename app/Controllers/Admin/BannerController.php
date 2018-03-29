@@ -48,6 +48,7 @@ class BannerController{
 		$title = $request->getParam('title');
 		$subTitle = $request->getParam('sub-title');
 		$intro = $request->getParam('banner-intro');
+		$uri = $request->getParam('url');
 		$photo = $request->getUploadedFiles();
 		$filePhoto = $photo['photo'];
 		$filename = $filePhoto->getClientFilename();
@@ -69,6 +70,7 @@ class BannerController{
 					'title' => $title,
 					'sub_title' => $subTitle,
 					'intro' => $intro,
+					'url' => $uri,
 					'photo' => $uploadFilename
 				]);
 			}
@@ -96,34 +98,57 @@ class BannerController{
 		$title = $request->getParam('title');
 		$subTitle = $request->getParam('sub-title');
 		$intro = $request->getParam('banner-intro');
+		$uri = $request->getParam('url');
 		$photo = $request->getUploadedFiles();
 		$filePhoto = $photo['photo'];
 		$filename = $filePhoto->getClientFilename();
 		$fileExtension = explode('.', $filename);
 		$hash_filename = hash('crc32', $filename);
 		$uploadFilename = date('YmdHsi').'_'.$hash_filename.'.'.$fileExtension[1];
+		$oldPhoto = $request->getParam('old-photo');
 
 
-		if($id!="" && $lang!="" && $filename!="" )
+		if($id!="" && $lang!="")
 		{
-			$uri = $this->getSystemUploadPath().'/map/'.$uploadFilename;
-
-			if ($filePhoto->getError() === UPLOAD_ERR_OK)
+			if($filename!="")
 			{
-				$filePhoto->moveTo($uri);
+				$uri = $this->getSystemUploadPath().'/map/'.$uploadFilename;
 
-				$banner_update = $this->banner->where('id',$id)->update([
-					'lang' => $lang,
-					'title' => $title,
-					'sub_title' => $subTitle,
-					'intro' => $intro,
-					'photo' => $uploadFilename
-				]);
+				if ($filePhoto->getError() === UPLOAD_ERR_OK)
+				{
+					$filePhoto->moveTo($uri);
+
+					$banner_update = $this->banner->where('id',$id)->update([
+						'lang' => $lang,
+						'title' => $title,
+						'sub_title' => $subTitle,
+						'intro' => $intro,
+						'url' => $uri,
+						'photo' => $uploadFilename
+					]);
+				}
+				else
+				{
+					$this->flash->addMessage('error', '資料儲存失敗！(照片上傳錯誤，請重新嘗試或聯絡管理人員)');
+					return $response->withRedirect($this->router->pathFor('banner.index'));								
+				}
+			}
+			elseif($oldPhoto!="")
+			{
+					$banner_update = $this->banner->where('id',$id)->update([
+						'lang' => $lang,
+						'title' => $title,
+						'sub_title' => $subTitle,
+						'intro' => $intro,
+						'url' => $uri,
+						'photo' => $oldPhoto
+					]);
+
 			}
 			else
 			{
-				$this->flash->addMessage('error', '資料儲存失敗！(照片上傳錯誤，請重新嘗試或聯絡管理人員)');
-				return $response->withRedirect($this->router->pathFor('banner.index'));								
+				$this->flash->addMessage('error', '必須上傳照片！');
+				return $response->withRedirect($this->router->pathFor('banner.index'));					
 			}
 
 			$this->flash->addMessage('success', '資料儲存成功');

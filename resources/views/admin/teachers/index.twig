@@ -51,6 +51,37 @@
           <div class="line"></div>
 
           <div class="form-group row">
+            {% if teacher_own.job == '1' or teacher_own.job == '' %}
+                {% set full = 'checked' %}
+                {% set path = '' %}
+            {% else %}
+                {% set full = '' %}
+                {% set path = 'checked' %}
+            {% endif %}
+            <label class="col-sm-2 form-control-label">職務:<span style="color:red">(*)</span></label>
+                <div class="col-sm-10">
+                  <label class="checkbox-inline">
+                    <input id="inlineCheckbox1" type="radio" name="job" value="1" class="radio-template" {{ full }}> 專任
+                  </label>
+                  &nbsp;&nbsp;
+                  <label class="checkbox-inline">
+                    <input id="inlineCheckbox2" type="radio" name="job" value="2" class="radio-template" {{ path }}> 兼任
+                  </label>
+                </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">排序: <span style="color:red">(*)</span></label>
+              <div class="col-sm-10">
+                <input type="number" name="sort" class="form-control" value="{{ teacher_own.sort }}">
+              </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
               <label class="col-sm-2 form-control-label">姓名: <span style="color:red">(*)</span></label>
               <div class="col-sm-10">
                 <input type="text" name="name" class="form-control" value="{{ teacher_own.name }}">
@@ -78,9 +109,25 @@
           <div class="line"></div>
 
           <div class="form-group row">
-              <label class="col-sm-2 form-control-label">照片: <span style="color:red">(*)</span></label>
+              <label class="col-sm-2 form-control-label">最高學歷: </label>
               <div class="col-sm-10">
-                <input type="file" name="photo" class="form-control">
+                <input type="text" name="hedu" class="form-control" value="{{ teacher_own.high_education }}">
+              </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">所屬系所: </label>
+              <div class="col-sm-10">
+                {% if teacher_own.own_dep is not empty %}
+                  <input type="hidden" class="ownDep" value="{{ teacher_own.own_dep }}">
+                {% endif %}
+                <select name="own-dep" id="own-dep" class="form-control">
+                {% for department in departments %}
+                  <option value="{{ department.id }}">{{ department.title }}</option>
+                {% endfor %}
+                </select>
               </div>
           </div>
 
@@ -98,33 +145,35 @@
           <div class="line"></div>
 
           <div class="form-group row">
-              <label class="col-sm-2 form-control-label">實驗室介紹: </label>
+              <label class="col-sm-2 form-control-label">專長: </label>
               <div class="col-sm-10">
-                <textarea name="introduce" id="editor1" rows="10" cols="80" placeholder="實驗室介紹">
-                  {{ teacher_own.introduce }}
-                </textarea>                
+                <textarea  class="form-control" name="expertise" id="expertise" rows="10" cols="80" placeholder="專長">{{ teacher_own.expertise }}</textarea>                
               </div>
           </div>
+
 
           <div class="line"></div>
 
+
           <div class="form-group row">
-              <label class="col-sm-2 form-control-label">論文／期刊: </label>
+              <label class="col-sm-2 form-control-label">照片: </label>
               <div class="col-sm-10">
-                <textarea name="publications" id="editor2" rows="10" cols="80" placeholder="論文／期刊">
-                  {{ teacher_own.publications }}
-                </textarea>                
+                <input type="hidden" name="old-photo" value="{{ teacher_own.photo }}">
+                <input type="file" name="photo" class="form-control">
               </div>
           </div>
 
-              {% autoescape %}
-                <script>
-                    // Replace the <textarea id="editor1"> with a CKEditor
-                    // instance, using default configuration.
-                    CKEDITOR.replace( 'editor1');
-                    CKEDITOR.replace( 'editor2');
-                </script>
-              {% endautoescape %}
+          {% if teacher_own.photo != '' %}
+          <div class="line"></div>
+          <div class="form-group row">
+              <label class="col-sm-2 form-control-label">圖片預覽:</label>
+              <div class="col-sm-10">
+                  <img src="{{ base_url }}/upload/teachers/{{ teacher_own.photo }}" class="img-responsive">
+              </div>
+          </div>
+          {% endif %}
+
+
 
             <div class="line"></div>
                 {% if action_route == 'teachers.update' %}

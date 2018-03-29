@@ -1,0 +1,45 @@
+{% extends 'templates/default.twig' %}
+
+{% block content %}
+
+	<section>
+		<h2 id="content">{{ trans('menu.nav.attachments') }}</h2>
+		<div class="about-content">
+
+		<div class="table-wrapper">
+			<table>
+				<thead>
+					<tr>
+						<th>{{ trans('home.downloadTable.title') }}</th>
+						<th>{{ trans('home.downloadTable.file') }}</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for attachment in attachments %}
+					<tr>
+						<td><a href="{{ base_url() }}/upload/downloads/{{ attachment.hash_filename }}" target="_blank">{{ attachment.title }}</a></td>
+						<td>
+							{% set fileAttachment = attachment.real_filename|split('.') %}
+							{% if fileAttachment.1 == 'doc' or fileAttachment.1 == 'docx' %}
+								{% set fileExtPhoto = 'doc.png' %}
+							{% elseif fileAttachment.1 == 'xls' or fileAttachment.1 == 'xlsx' %}
+								{% set fileExtPhoto = 'xls.png' %}
+							{% elseif fileAttachment.1 == 'ptt' or fileAttachment.1 == 'pttx' %}
+								{% set fileExtPhoto = 'ptt.png' %}
+							{% elseif fileAttachment.1 == 'pdf' %}
+								{% set fileExtPhoto = 'pdf.png' %}
+							{% else %}
+								{% set fileExtPhoto = 'file.png' %}
+							{% endif %}
+							<a href="{{ base_url() }}/upload/downloads/{{ attachment.hash_filename }}" target="_blank"><img src="{{ base_url() }}/public-assets/images/{{ fileExtPhoto }}" style="width:20px;height:20px;"></a>
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+		</div>
+	</section>
+
+{% endblock %}

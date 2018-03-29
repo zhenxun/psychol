@@ -4,6 +4,8 @@ use Slim\Router;
 use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Leopard\Middleware\AuthMiddleware;
+use Leopard\Middleware\LocaleMiddleware;
+use Noodlehaus\Config;
 
 $app->group('', function(){
 
@@ -15,12 +17,28 @@ $app->group('', function(){
 
 	$this->get('/about',['Leopard\Controllers\AboutController', 'index'])->setName('c.about.index');
 
+	$this->get('/course/about',['Leopard\Controllers\CourseAboutController','index'])->setName('c.course.about.index');
+
+	$this->get('/develop',['Leopard\Controllers\DevelopController', 'index'])->setName('c.about.develop.index');
+
+	$this->get('/trend',['Leopard\Controllers\trendController', 'index'])->setName('c.about.trend.index');
+
 	$this->get('/organization',['Leopard\Controllers\OrganizationController', 'index'])->setName('c.organization.index');
 
 	$this->get('/staff',['Leopard\Controllers\StaffController','index'])->setName('c.staff.index');
 
-	$this->get('/charter',['Leopard\Controllers\CharterController', 'index'])->setName('c.charter.index');
-});
+	$this->get('/teachers',['Leopard\Controllers\MemberController','index'])->setName('c.teachers.index');
+
+	$this->get('/course/regulations',['Leopard\Controllers\RegulationsController','index'])->setName('c.course.regulation.index');
+
+	$this->get('/downloads',['Leopard\Controllers\DownloadsController','index'])->setName('c.downloads.index');
+
+	$this->get('/common-problem',['Leopard\Controllers\CommonProblemController','index'])->setName('c.common.problem.index');
+
+	$this->get('/links',['Leopard\Controllers\RelatedLinkController','index'])->setName('c.related.link.index');
+
+	$this->get('/course/rules',['Leopard\Controllers\CourseRulesController','index'])->setName('c.course.rules.index');
+})->add(new LocaleMiddleware($container->get(Twig::class), $container->get('router'), $container->get('config')));
 
 
 $app->group('/admin', function(){
@@ -58,25 +76,25 @@ $app->group('/admin', function(){
 
 	$this->delete('/about/{id}',['Leopard\Controllers\Admin\AboutController','delete'])->setName('about.delete');
 
-	$this->get('/organization',['Leopard\Controllers\Admin\OrganizationController','index'])->setName('organization.index');
+	$this->get('/develop',['Leopard\Controllers\Admin\DevelopController','index'])->setName('develop.index');
 
-	$this->get('/organization/search/{id}',['Leopard\Controllers\Admin\OrganizationController','search'])->setName('organization.search');
+	$this->get('/develop/search/{id}',['Leopard\Controllers\Admin\DevelopController','search'])->setName('develop.search');
 
-	$this->post('/organization',['Leopard\Controllers\Admin\OrganizationController','create'])->setName('organization.create');
+	$this->post('/develop',['Leopard\Controllers\Admin\DevelopController','create'])->setName('develop.create');
 
-	$this->post('/organization/update',['Leopard\Controllers\Admin\OrganizationController','update'])->setName('organization.update');
+	$this->post('/develop/update',['Leopard\Controllers\Admin\DevelopController','update'])->setName('develop.update');
 
-	$this->delete('/organization/{id}',['Leopard\Controllers\Admin\OrganizationController','delete'])->setName('organization.delete');
+	$this->delete('/develop/{id}',['Leopard\Controllers\Admin\DevelopController','delete'])->setName('develop.delete');
 
-	$this->get('/charter',['Leopard\Controllers\Admin\CharterController','index'])->setName('charter.index');
+	$this->get('/trend',['Leopard\Controllers\Admin\TrendController','index'])->setName('trend.index');
 
-	$this->get('/charter/search/{id}',['Leopard\Controllers\Admin\CharterController','search'])->setName('charter.search');
+	$this->get('/trend/search/{id}',['Leopard\Controllers\Admin\TrendController','search'])->setName('trend.search');
 
-	$this->post('/charter',['Leopard\Controllers\Admin\CharterController','create'])->setName('charter.create');
+	$this->post('/trend',['Leopard\Controllers\Admin\TrendController','create'])->setName('trend.create');
 
-	$this->post('/charter/update',['Leopard\Controllers\Admin\CharterController','update'])->setName('charter.update');
+	$this->post('/trend/update',['Leopard\Controllers\Admin\TrendController','update'])->setName('trend.update');
 
-	$this->delete('/charter/{id}',['Leopard\Controllers\Admin\CharterController','delete'])->setName('charter.delete');
+	$this->delete('/trend/{id}',['Leopard\Controllers\Admin\TrendController','delete'])->setName('trend.delete');
 
 	$this->get('/course/about',['Leopard\Controllers\Admin\CourseAboutController','index'])->setName('course.about.index');
 
@@ -97,6 +115,16 @@ $app->group('/admin', function(){
 	$this->post('/regulations/update',['Leopard\Controllers\Admin\CourseRegulationsController','update'])->setName('course.regulations.update');
 
 	$this->delete('/regulations/{id}',['Leopard\Controllers\Admin\CourseRegulationsController','delete'])->setName('course.regulations.delete');
+
+	$this->get('/course/rules', ['Leopard\Controllers\Admin\CourseRulesController','index'])->setName('course.rules.index');
+
+	$this->get('/course/rules/search/{id}', ['Leopard\Controllers\Admin\CourseRulesController','search'])->setName('course.rules.search');
+
+	$this->post('/course/rules', ['Leopard\Controllers\Admin\CourseRulesController','create'])->setName('course.rules.create');
+
+	$this->post('/course/rules/update',['Leopard\Controllers\Admin\CourseRulesController','update'])->setName('course.rules.update');
+
+	$this->delete('/course/rules/{id}',['Leopard\Controllers\Admin\CourseRulesController','delete'])->setName('course.rules.delete');
 
 	$this->get('/course',['Leopard\Controllers\Admin\CourseController','index'])->setName('course.index');
 
@@ -138,6 +166,26 @@ $app->group('/admin', function(){
 
 	$this->delete('/teachers/{id}',['Leopard\Controllers\Admin\TeachersController','delete'])->setName('teachers.delete');
 
+	$this->get('/staff',['Leopard\Controllers\Admin\StaffController','index'])->setName('staff.index');
+
+	$this->get('/staff/search/{id}',['Leopard\Controllers\Admin\StaffController','search'])->setName('staff.search');
+
+	$this->post('/staff',['Leopard\Controllers\Admin\StaffController','create'])->setName('staff.create');
+
+	$this->post('/staff/update',['Leopard\Controllers\Admin\StaffController','update'])->setName('staff.update');
+
+	$this->delete('/staff/{id}',['Leopard\Controllers\Admin\StaffController','delete'])->setName('staff.delete');
+
+	$this->get('/department',['Leopard\Controllers\Admin\DepartmentController','index'])->setName('department.index');
+
+	$this->get('/department/search/{id}',['Leopard\Controllers\Admin\DepartmentController','search'])->setName('department.search');
+
+	$this->post('/department',['Leopard\Controllers\Admin\DepartmentController','create'])->setName('department.create');
+
+	$this->post('/department/update',['Leopard\Controllers\Admin\DepartmentController','update'])->setName('department.update');
+
+	$this->delete('/department/{id}',['Leopard\Controllers\Admin\DepartmentController','delete'])->setName('department.delete');
+
 	$this->get('/users',['Leopard\Controllers\Admin\UsersController','index'])->setName('users.index');
 
 	$this->get('/users/search/{id}',['Leopard\Controllers\Admin\UsersController','search'])->setName('users.search');
@@ -161,6 +209,16 @@ $app->group('/admin', function(){
 	$this->post('/location/update',['Leopard\Controllers\Admin\LocationController', 'update'])->setName('location.update');
 
 	$this->delete('/location/{id}',['Leopard\Controllers\Admin\LocationController','delete'])->setName('location.delete');
+
+	$this->get('/download',['Leopard\Controllers\Admin\DownloadsController','index'])->setName('download.index');
+
+	$this->get('/download/search/{id}',['Leopard\Controllers\Admin\DownloadsController','search'])->setName('download.search');
+
+	$this->post('/download',['Leopard\Controllers\Admin\DownloadsController','create'])->setName('download.create');
+
+	$this->post('/download/update',['Leopard\Controllers\Admin\DownloadsController','update'])->setName('download.update');
+
+	$this->delete('/download/{id}',['Leopard\Controllers\Admin\DownloadsController','delete'])->setName('download.delete');
 })->add(new AuthMiddleware($container->get(Twig::class), $container->get('router'), $container->get(Messages::class)));
 
 $app->get('/admin/signin',['Leopard\Controllers\Admin\SigninController', 'index'])->setName('signin.index');

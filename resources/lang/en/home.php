@@ -5,8 +5,8 @@ return [
 	'home' => [
 
 		'header' => [
-			'title' => 'In Principles and Implications of Mind Science',
-			'sub-title'=> 'International Doctoral Program'
+			'title' => 'International Doctoral Program ',
+			'sub-title'=> 'in Principles and Implications of Mind Sciences'
 		],
 
 		'search' => 'search',
@@ -48,7 +48,14 @@ return [
 			]
 
 
-		]
+		],
+
+		'noData' => 'No information available',
+
+		'downloadTable' => [
+			'title' => 'Title',
+			'file' => 'Attachment'
+		],
 
 	]
 
